@@ -2,8 +2,8 @@
 /[Ll]ogs/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
+# /[Bb]uild/
+# /[Bb]uilds/
 /Assets/AssetStoreTools*
 /ExtraAsset
 
@@ -32,8 +32,8 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-*.apk
-*.unitypackage
+# *.apk
+# *.unitypackage
 
 *.tkr.csv
 *.pos.csv 

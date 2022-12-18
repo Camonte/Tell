@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>TELL</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
+    <link rel="stylesheet" href="TemplateData/style.css" />
+  </head>
+  <body class="light">
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+      <div id="unity-loading-bar">
+        <div id="unity-logo"><img src="logo.png" /></div>
+        <div id="unity-progress-bar-empty" style="display: none;">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <div id="unity-fullscreen-button" style="display: none;"></div>
+    <script>
+      const hideFullScreenButton = "true";
+      const buildUrl = "Build";
+      const loaderUrl = buildUrl + "/WebGL.loader.js";
+      const config = {
+        dataUrl: buildUrl + "/WebGL.data",
+        frameworkUrl: buildUrl + "/WebGL.framework.js",
+        codeUrl: buildUrl + "/WebGL.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "IIG",
+        productName: "TELL",
+        productVersion: "1.0",
+      };
+
+      const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingCover = document.querySelector("#loading-cover");
+      const progressBarEmpty = document.querySelector(
+        "#unity-progress-bar-empty"
+      );
+      const progressBarFull = document.querySelector(
+        "#unity-progress-bar-full"
+      );
+      const fullscreenButton = document.querySelector(
+        "#unity-fullscreen-button"
+      );
+      const spinner = document.querySelector(".spinner");
+
+      const canFullscreen = (function() {
+        for (const key of [
+          "exitFullscreen",
+          "webkitExitFullscreen",
+          "webkitCancelFullScreen",
+          "mozCancelFullScreen",
+          "msExitFullscreen",
+        ]) {
+          if (key in document) {
+            return true;
+          }
+        }
+        return false;
+      })();
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        config.devicePixelRatio = 1;
+      }
+      loadingCover.style.display = "";
+
+      const script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          spinner.style.display = "none";
+          progressBarEmpty.style.display = "";
+          progressBarFull.style.width = `${100 * progress}%`;
+        })
+          .then((unityInstance) => {
+            window.unity = unityInstance;
+            loadingCover.style.display = "none";
+            if (canFullscreen) {
+              if (!hideFullScreenButton) {
+                fullscreenButton.style.display = "";
+              }
+              fullscreenButton.onclick = () => {
+                unityInstance.SetFullscreen(1);
+              };
+            }
+          })
+          .catch((message) => {
+            alert(message);
+          });
+      };
+      document.body.appendChild(script);
+    </script>
+    <script>
+      let child;
+
+      window.Open = () => {
+        let opened = child && !child.closed;
+        if (!opened) {
+          child = window.open(
+            "child.html",
+            "_blank",
+            "width=700,height=500,left=200,top=100"
+          );
+        }
+        return !opened;
+      };
+
+      // close child if we close the main window
+      window.onbeforeunload = () => {
+        if (child && !child.closed) {
+          child.close();
+        }
+      };
+
+      // called from child
+      function BeforeClose() {
+        unity.SendMessage("Secondary Window", "SecondaryWindowClosed");
+        unity.SendMessage("Main Menu", "SecondaryWindowClosed");
+      }
+
+      function NextSentence(sentence) {
+        unity.SendMessage("StateManager", "NextSentence", sentence);
+      }
+
+      function SetInputType(inputType) {
+        unity.SendMessage("StateManager", "SetInputType", inputType);
+      }
+
+      function UpdateDict(words) {
+        unity.SendMessage("Database", "UpdateDict", words);
+      }
+
+      function UpdatePhonemes(table) {
+          unity.SendMessage("StateManager", "UpdatePhonemes", table);
+      }
+    </script>
+  </body>
+</html>
