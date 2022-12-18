@@ -211,7 +211,7 @@ public class Draggable : MonoBehaviour
     {
         if (Config.testMode)
         {
-            DestroyAnim();
+            Destroy();
         }
         else
         {

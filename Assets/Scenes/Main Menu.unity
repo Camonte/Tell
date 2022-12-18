@@ -10180,7 +10180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Version 1.0\n\nD\xE9velopp\xE9 par Peter Krcmar"
+  m_text: "Version 2.0\n\nD\xE9velopp\xE9 par Peter Krcmar et Camille Montemagni"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57d2e6361327abf468951defc85e11d5, type: 2}
   m_sharedMaterial: {fileID: -215704385126239436, guid: 57d2e6361327abf468951defc85e11d5, type: 2}

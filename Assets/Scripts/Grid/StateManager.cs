@@ -67,7 +67,6 @@ public class StateManager : Singleton<StateManager>
         int i = sentences.IndexOf(currentSentence);
         i++;
         previousWordButton.gameObject.SetActive(true);
-        //nextWordButton.gameObject.SetActive(i < sentences.Count - 1);
         nextWordButton.GetComponent<ShiftXAnimation>().active = i < sentences.Count - 1;
 
         currentSentence = sentences[i];
@@ -81,7 +80,6 @@ public class StateManager : Singleton<StateManager>
         int i = sentences.IndexOf(currentSentence);
         i--;
         previousWordButton.GetComponent<ShiftXAnimation>().active = i > 0;
-        //previousWordButton.gameObject.SetActive(i > 0);
         nextWordButton.gameObject.SetActive(true);
 
         currentSentence = sentences[i];
@@ -325,13 +323,5 @@ public class StateManager : Singleton<StateManager>
         {
             ((GridNoShapes)GridManager.Instance.grid).selectedPhonemes = set;
         }
-        //else if (GridManager.Instance.grid is GridWithShapes)
-        //{
-        //    ((GridWithShapes)GridManager.Instance.grid).selectedPhonemes = set;
-        //}
-        //else if (GridManager.Instance.grid is GridWithShapesGrapheme)
-        //{
-        //    ((GridWithShapesGrapheme)GridManager.Instance.grid).selectedPhonemes = set;
-        //}
     }
 }
