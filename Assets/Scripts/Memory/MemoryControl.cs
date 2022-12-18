@@ -205,9 +205,4 @@ public class MemoryControl : MonoBehaviour
         firstCardUp = null;
         secondCardUp = null;
     }
-
-    private void ReloadLevel()
-    {
-
-    }
 }

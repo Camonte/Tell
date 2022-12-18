@@ -107,4 +107,17 @@ public class MemoryMenu : MonoBehaviour
     {
         StartCoroutine(Launch("Main Menu 1"));
     }
+
+    public void NextLevel()
+    {
+        if(Config.memoryDifficulty == 1)
+        {
+            Config.memoryDifficulty = 2;
+        } 
+        else if (Config.memoryDifficulty == 2)
+        {
+            Config.memoryDifficulty = 3;
+        }
+        StartCoroutine(Launch("Main Menu 1"));
+    }
 }
