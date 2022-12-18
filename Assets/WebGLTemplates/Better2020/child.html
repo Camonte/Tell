@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/9dca4c3ff6.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.6.1/jszip.min.js"
+      integrity="sha512-qDzk+Wqv8uAmrIr0t9Hjo4qM3DjvwTWuuuG3w9H8JBKd1EMpMaUEKoHKYbX6yP+ilTloEADFKFwKMzOZLlgTEg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <title>TELL in motion - Tableau de bord</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+        font-family: "Readex Pro", sans-serif;
+      }
+
+      :root {
+        --accent-color: rgb(77, 68, 83);
+      }
+
+      body {
+        height: 100%;
+        width: 100%;
+        position:page;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .wrapper {
+        width: 80%;
+      }
+
+      textarea {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        min-height: 8rem;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 15px 0;
+        font-size: large;
+      }
+
+      .inputDescriptionWrapper {
+        margin: 1rem 3px 0px 5px;
+        color: gray;
+      }
+
+      label {
+        margin-right: 1rem;
+      }
+
+      .inputDescriptionWrapper i {
+        color: var(--accent-color);
+      }
+
+      button,
+      .fileChoose {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 5px 15px;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        border: 3px solid var(--accent-color);
+        transition: padding 0.1s ease-in-out;
+      }
+
+      .fileChoose {
+        background: white;
+        color: var(--accent-color);
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+
+      button:hover,
+      .fileChoose:hover {
+        cursor: pointer;
+        padding: 5px 18px;
+      }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 50px 5px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        th {
+            text-align:left;
+        }
+
+        input[type="checkbox"] + label:hover {
+            cursor:pointer;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        input[type="checkbox"] + label {
+            opacity: 0.3;
+        }
+
+        input[type="checkbox"]:checked + label {
+            opacity: 1;
+        }
+
+      button:active {
+        background-color: black;
+      }
+
+        .option {
+            margin-bottom: 50px;
+        }
+
+      .confirmation {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+      <div class="wrapper">
+          <div class="option">
+              <h3>Type d'entrée</h3>
+              <input type="radio"
+                     id="WordList"
+                     name="inputType"
+                     value="WordList"
+                     checked />
+              <label for="WordList">Liste de mots / phrases</label>
+              <input type="radio" id="Sentence" name="inputType" value="Sentence" />
+              <label for="Sentence">Texte en "bloc"</label>
+              <div class="inputDescriptionWrapper">
+                  <i class="fas fa-question-circle"></i>
+                  <span id="inputDescription"></span>
+              </div>
+          </div>
+          <div class="option">
+              <h3>Texte</h3>
+              <label for="fileSelector" class="fileChoose">📁 Charger fichier</label>
+              <input type="file" id="fileSelector" accept=".txt, .docx" />
+
+              <textarea id="sentence"
+                        placeholder="Tapez votre texte ou chargez un fichier..."></textarea>
+              <!--<button id="sentenceButton">Valider</button>
+            <span class="confirmation"><i class="fas fa-check"></i></span>-->
+          </div>
+          <div class="option">
+              <h3>Sélection de phonèmes spécifiques (en mode coloriage uniquement)</h3>
+              <button id="selectAll">Tous</button>
+              <button id="unselectAll">Aucun</button>
+              <table class="fixed">
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_m" name="chk" checked />
+                          <label for="c_m"><img src="img/consonnants/m.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_u" name="chk" checked />
+                          <label for="c_u"><img src="img/voyels/u.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_i" name="chk" checked />
+                          <label for="c_i"><img src="img/voyels/i.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_f" name="chk" checked />
+                          <label for="c_f"><img src="img/consonnants/f.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_v" name="chk" checked />
+                          <label for="c_v"><img src="img/consonnants/v.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_eu" name="chk" checked />
+                          <label for="c_eu"><img src="img/voyels/eu.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_é" name="chk" checked />
+                          <label for="c_é"><img src="img/voyels/é.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_p" name="chk" checked />
+                          <label for="c_p"><img src="img/consonnants/p.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_b" name="chk" checked />
+                          <label for="c_b"><img src="img/consonnants/b.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_e" name="chk" checked />
+                          <label for="c_e"><img src="img/voyels/e.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_è" name="chk" checked />
+                          <label for="c_è"><img src="img/voyels/è.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_un" name="chk" checked />
+                          <label for="c_un"><img src="img/voyels/in.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_n" name="chk" checked />
+                          <label for="c_n"><img src="img/consonnants/n.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_a" name="chk" checked />
+                          <label for="c_a"><img src="img/voyels/a.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_an" name="chk" checked />
+                          <label for="c_an"><img src="img/voyels/an.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_s" name="chk" checked />
+                          <label for="c_s"><img src="img/consonnants/s.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_z" name="chk" checked />
+                          <label for="c_z"><img src="img/consonnants/z.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_o" name="chk" checked />
+                          <label for="c_o"><img src="img/voyels/o.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_on" name="chk" checked />
+                          <label for="c_on"><img src="img/voyels/on.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_t" name="chk" checked />
+                          <label for="c_t"><img src="img/consonnants/t.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_d" name="chk" checked />
+                          <label for="c_d"><img src="img/consonnants/d.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_au" name="chk" checked />
+                          <label for="c_au"><img src="img/voyels/au.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_gn" name="chk" checked />
+                          <label for="c_gn"><img src="img/consonnants/gn.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_ch" name="chk" checked />
+                          <label for="c_ch"><img src="img/consonnants/ch.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_j" name="chk" checked />
+                          <label for="c_j"><img src="img/consonnants/j.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_ou" name="chk" checked />
+                          <label for="c_ou"><img src="img/voyels/ou.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_l" name="chk" checked />
+                          <label for="c_l"><img src="img/consonnants/l.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_y" name="chk" checked />
+                          <label for="c_y"><img src="img/consonnants/y.png" width="40" height="40" /></label>
+                      </th>
+                      <th>
+                          <input type="checkbox" id="c_oi" name="chk" checked />
+                          <label for="c_oi"><img src="img/voyels/oi.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_r" name="chk" checked />
+                          <label for="c_r"><img src="img/consonnants/r.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_k" name="chk" checked />
+                          <label for="c_k"><img src="img/consonnants/k.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_g" name="chk" checked />
+                          <label for="c_g"><img src="img/consonnants/g.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>
+                          <input type="checkbox" id="c_ks" name="chk" checked />
+                          <label for="c_ks"><img src="img/consonnants/ks.png" width="40" height="40" /></label>
+                          <input type="checkbox" id="c_gz" name="chk" checked />
+                          <label for="c_gz"><img src="img/consonnants/gz.png" width="40" height="40" /></label>
+                      </th>
+                  </tr>
+              </table>
+              <button id="phonemesButton">Valider</button>
+              <span class="confirmation"><i class="fas fa-check"></i></span>
+          </div>
+      </div>
+
+      <script>window.onbeforeunload = () => {
+              window.opener.BeforeClose();
+          };
+
+          const reader = new FileReader();
+          const handlePlainText = (e) => {
+              let s = e.target.result;
+              document.getElementById("sentence").value = s;
+          };
+
+          const handleDocx = (e) => {
+              var xml, dom, txt, p, i, r, j, t, k;
+              xml = new JSZip(e.target.result).file("word/document.xml").asText();
+              dom = new DOMParser().parseFromString(xml, "application/xml");
+              txt = "";
+              p = dom.firstChild.firstChild.childNodes; //w:document>w:body>w:p
+              for (i = 0; i < p.length; i++) {
+                  if (p[i].nodeName !== "w:p") {
+                      continue;
+                  }
+                  r = p[i].childNodes;
+                  for (j = 0; j < r.length; j++) {
+                      if (r[j].nodeName !== "w:r") {
+                          continue;
+                      }
+                      t = r[j].childNodes;
+                      for (k = 0; k < t.length; k++) {
+                          if (t[k].nodeName === "w:t") {
+                              txt += t[k].textContent;
+                          } else if (t[k].nodeName === "w:tab") {
+                              txt += "\t";
+                          } else if (t[k].nodeName === "w:br") {
+                              txt += "\n";
+                          }
+                      }
+                  }
+                  txt += "\n";
+              }
+              document.getElementById("sentence").value = txt;
+          };
+
+          document
+              .getElementById("selectAll")
+              .addEventListener("click", async function (e) {
+                  var ele = document.getElementsByName('chk');
+                  for (var i = 0; i < ele.length; i++) {
+                      if (ele[i].type == 'checkbox')
+                          ele[i].checked = true;
+                  }
+              });
+
+          document
+              .getElementById("unselectAll")
+              .addEventListener("click", async function (e) {
+                  var ele = document.getElementsByName('chk');
+                  for (var i = 0; i < ele.length; i++) {
+                      if (ele[i].type == 'checkbox')
+                          ele[i].checked = false;
+
+                  }
+              });
+
+          // file upload button
+          document
+              .getElementById("fileSelector")
+              .addEventListener("change", (e) => {
+                  const file = e.target.files[0];
+                  console.log(file.type);
+                  if (
+                      file.type.match("text/*") ||
+                      file.type.match("application/vnd.ms-excel")
+                  ) {
+                      reader.onload = handlePlainText;
+                      reader.readAsText(file, "UTF-8");
+                  } else if (
+                      file.type.match(
+                          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      )
+                  ) {
+                      reader.onload = handleDocx;
+                      reader.readAsArrayBuffer(file);
+                  } else if (
+                      file.type.match("application/msword") ||
+                      file.type.match("application/rtf")
+                  ) {
+                      reader.onload = handleRtf;
+                      reader.readAsText(file, "UTF-8");
+                  }
+              });
+
+          // input type radio group
+          let inputType = "WordList";
+          let radios = document.getElementsByName("inputType");
+          radios.forEach((r) =>
+              r.addEventListener("change", (e) => {
+                  if (r.checked) {
+                      inputType = r.value;
+                      description.innerText = inputTypeDescriptions[r.value];
+                  }
+              })
+          );
+
+          // input type description
+          let inputTypeDescriptions = {
+              WordList:
+                  "Chaque ligne du texte sera affichée séparément. Le format attendu est un mot par ligne, ou une phrase par ligne.",
+              Sentence:
+                  "Le texte sera affiché tel quel en un seul bloc, retours à la ligne inclus.",
+          };
+          let description = document.getElementById("inputDescription");
+          description.innerText = inputTypeDescriptions[inputType];</script>
+
+      <script type="module">// Import the functions you need from the SDKs you need
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+          // TODO: Add SDKs for Firebase products that you want to use
+          // https://firebase.google.com/docs/web/setup#available-libraries
+          import {
+              getDatabase,
+              ref,
+              set,
+              onValue,
+              update,
+              get,
+          } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+
+          // Your web app's Firebase configuration
+          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          const firebaseConfig = {
+              apiKey: "AIzaSyC7Mb3eutr9vng1LEOVaTvVNm7w29_0w6U",
+              authDomain: "tell-edu.firebaseapp.com",
+              databaseURL:
+                  "https://tell-edu-default-rtdb.europe-west1.firebasedatabase.app",
+              projectId: "tell-edu",
+              storageBucket: "tell-edu.appspot.com",
+              messagingSenderId: "487497056367",
+              appId: "1:487497056367:web:11a0b7581ff53d8c760d9a",
+              measurementId: "G-VX5LTQGN90",
+              databaseURL:
+                  "https://tell-edu-default-rtdb.europe-west1.firebasedatabase.app/",
+          };
+
+          // Initialize Firebase
+          const app = initializeApp(firebaseConfig);
+          const db = getDatabase(app); //getFirestore(app);
+
+          async function readWord(word) {
+              const wordRef = ref(db, word);
+              return get(wordRef);
+              /*
+              return onValue(wordRef, (snapshot) => {
+                const data = snapshot.val();
+                return data;
+                //console.log(data);
+                if (data) {
+                  console.log(data);
+                } else {
+                  console.log(`word ${word} not found`);
+                }
+              });
+              */
+          }
+
+          async function getAllWords(sentence) {
+              const words = clean(sentence);
+              const annotations = words.map((word) => readWord(word));
+              return Promise.all(annotations).then((res) => {
+                  let s = "";
+                  res.forEach((snap) => {
+                      const data = snap.val();
+                      if (data) s += `${snap.key},${data.phonemes},${data.graphemes}\n`;
+                  });
+                  console.log(s);
+                  window.opener.UpdateDict(s); ///TODO//////////////////////
+                  window.opener.SetInputType(inputType);
+                  window.opener.NextSentence(document.getElementById("sentence").value);
+              });
+          }
+
+          function clean(sentence) {
+              return [
+                  ...new Set(
+                      sentence
+                          .split(/[ \-\n\r\t]/)
+                          .map((w) => w.replace(/[.,?!:\"]/g, ""))
+                          .filter((w) => w)
+                          .map((w) => w.toLowerCase())
+                          .flatMap((w) => [w, ...w.split(/(?<=\')/g)])
+                  ),
+              ];
+          }
+
+          // button to change the current sentence
+          /**document
+              .getElementById("phonemesButton")
+              .addEventListener("click", async function (e) {
+                  let sentence = document.getElementById("sentence").value;
+                  //if (sentence != "") {
+                  //window.opener.SetInputType(inputType);
+                  //window.opener.NextSentence(sentence);
+                  await getAllWords(sentence);
+
+                  // confirmation
+                  let confirmation = document.querySelector(".confirmation");
+                  confirmation.style.visibility = "visible";
+                  setTimeout(() => (confirmation.style.visibility = "hidden"), 400);
+                  //}
+              });**/
+
+          // consonnants
+          let m = "m-";
+          let f = "f-";
+          let v = "v-";
+          let p = "p-";
+          let b = "b-";
+          let n = "n-";
+          let s = "s-";
+          let z = "z-";
+          let t = "t-";
+          let d = "d-";
+          let gn = "n j-";
+          let ch = "S-";
+          let j = "Z-";
+          let l = "l-";
+          let y = "j-";
+          let r = "r-";
+          let k = "k-";
+          let g = "g-";
+          let ks = "k s-";
+          let gz = "g z-";
+          // vowels
+          let u = "y-";
+          let i = "i-";
+          let eu = "2-";
+          let e1 = "e-";
+          let e = "9-";
+          let e2 = "E-";
+          let un = "e~-";
+          let a = "a-";
+          let an = "a~-";
+          let o = "o-";
+          let on = "o~-";
+          let au = "O-";
+          let ou = "u-";
+          let oi = "u a-";
+
+          function retrieveCheckboxes() {
+              let selectedPhonemes = "";
+              // consonnants
+              if (document.getElementById("c_m").checked) {
+                  selectedPhonemes.concat(m);
+              }
+              if (document.getElementById("c_f").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(f);
+              }
+              if (document.getElementById("c_v").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(v);
+              }
+              if (document.getElementById("c_p").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(p);
+              }
+              if (document.getElementById("c_b").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(b);
+              }
+              if (document.getElementById("c_n").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(n);
+              }
+              if (document.getElementById("c_s").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(s);
+              }
+              if (document.getElementById("c_z").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(z);
+              }
+              if (document.getElementById("c_t").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(t);
+              }
+              if (document.getElementById("c_d").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(d);
+              }
+              if (document.getElementById("c_gn").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(gn);
+              }
+              if (document.getElementById("c_ch").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(ch);
+              }
+              if (document.getElementById("c_j").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(j);
+              }
+              if (document.getElementById("c_l").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(l);
+              }
+              if (document.getElementById("c_y").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(y);
+              }
+              if (document.getElementById("c_r").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(r);
+              }
+              if (document.getElementById("c_k").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(k);
+              }
+              if (document.getElementById("c_g").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(g);
+              }
+              if (document.getElementById("c_ks").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(ks);
+              }
+              if (document.getElementById("c_gz").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(gz);
+              }
+              // vowels
+              if (document.getElementById("c_u").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(u);
+              }
+              if (document.getElementById("c_i").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(i);
+              }
+              if (document.getElementById("c_eu").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(eu);
+              }
+              if (document.getElementById("c_é").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(e1);
+              }
+              if (document.getElementById("c_e").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(e);
+              }
+              if (document.getElementById("c_è").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(e2);
+              }
+              if (document.getElementById("c_un").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(un);
+              }
+              if (document.getElementById("c_a").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(a);
+              }
+              if (document.getElementById("c_an").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(an);
+              }
+              if (document.getElementById("c_o").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(o);
+              }
+              if (document.getElementById("c_on").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(on);
+              }
+              if (document.getElementById("c_au").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(au);
+              }
+              if (document.getElementById("c_ou").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(ou);
+              }
+              if (document.getElementById("c_oi").checked) {
+                  selectedPhonemes = selectedPhonemes.concat(oi);
+              }
+              return selectedPhonemes;
+          }
+
+          document
+              .getElementById("phonemesButton")
+              .addEventListener("click", async function (e) {
+                  var table = retrieveCheckboxes();
+                  window.opener.UpdatePhonemes(table);
+                  let sentence = document.getElementById("sentence").value;
+                  //if (sentence != "") {
+                  //window.opener.SetInputType(inputType);
+                  //window.opener.NextSentence(sentence);
+                  await getAllWords(sentence);
+                  // confirmation
+
+                  let confirmation = document.querySelector(".confirmation");
+                  confirmation.style.visibility = "visible";
+                  setTimeout(() => (confirmation.style.visibility = "hidden"), 400);
+              });</script>
+  </body>
+</html>

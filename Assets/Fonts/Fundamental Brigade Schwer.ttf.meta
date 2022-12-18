@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4031c4e5c387e584d842bbc9edfe09d7
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Fundamental  Brigade Schwer
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3cad8f8602ce7844194636e3439387df, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
