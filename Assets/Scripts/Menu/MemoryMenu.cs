@@ -86,7 +86,7 @@ public class MemoryMenu : MonoBehaviour
         Config.freeWriting = false;
         Config.memoryMode = true;
         Config.progressiveCorrection = true;
-        StartCoroutine(Launch("Main Menu2"));
+        StartCoroutine(Launch("Main Menu 2"));
     }
 
     private IEnumerator Launch(string sceneName)
@@ -105,7 +105,7 @@ public class MemoryMenu : MonoBehaviour
 
     public void ReloadLevel()
     {
-        StartCoroutine(Launch("Main Menu 1"));
+        StartCoroutine(Launch(SceneManager.GetActiveScene().name));
     }
 
     public void NextLevel()
@@ -118,6 +118,6 @@ public class MemoryMenu : MonoBehaviour
         {
             Config.memoryDifficulty = 3;
         }
-        StartCoroutine(Launch("Main Menu 1"));
+        StartCoroutine(Launch(SceneManager.GetActiveScene().name));
     }
 }

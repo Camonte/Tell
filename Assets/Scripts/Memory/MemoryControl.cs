@@ -25,6 +25,16 @@ public class MemoryControl : MonoBehaviour
     private const int difficultNumberOfPairs = 9;
     private const int difficultStartX = -625;
     private int[] difficultSwitchLineIndices = new int[] {2, 5, 11};
+
+    // Images mode values
+    private List<int> imagesGraphemesIndices = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29};
+    private List<int> imagesConsonantsGraphemesIndices = new List<int> {5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 22, 23, 24, 25, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 22, 23, 24, 25};
+    private List<int> imagesVowelsGraphemesIndices = new List<int> {0, 1, 2, 3, 4, 9, 10, 11, 14, 19, 20, 21, 26, 0, 1, 2, 3, 4, 9, 10, 11, 14, 19, 20, 21, 26};
+
+    // Phonemes mode values
+    private List<int> phonemesGraphemesIndices = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51};
+    private List<int> phonemesConsonantsGraphemesIndices = new List<int> {6, 7, 8, 9, 10, 11, 16, 17, 18, 19, 25, 26, 27, 28, 29, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47};
+    private List<int> phonemesVowelsGraphemesIndices = new List<int> {0, 1, 2, 3, 4, 5, 12, 13, 14, 15, 20, 21, 22, 23, 24, 30, 31, 32, 33, 34, 35, 36, 43, 48, 49, 50, 51};
     
     GameObject card;
     List<int> graphemesIndices;
@@ -95,12 +105,24 @@ public class MemoryControl : MonoBehaviour
         pickedGraphemesIndices = new List<int>();
         pickedImagesIndices = new List<int>();
         yPosition = 290;
-        if(Config.consonantsActive & Config.vowelsActive)
-            graphemesIndices = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29};
-        else if (Config.consonantsActive)
-            graphemesIndices = new List<int> {5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 22, 23, 24, 25, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 22, 23, 24, 25};
+        if(Config.memoryMode)
+        {
+            if(Config.consonantsActive & Config.vowelsActive)
+                graphemesIndices = phonemesGraphemesIndices;
+            else if (Config.consonantsActive)
+                graphemesIndices = phonemesConsonantsGraphemesIndices;
+            else 
+                graphemesIndices = phonemesVowelsGraphemesIndices;
+        }
         else 
-            graphemesIndices = new List<int> {0, 1, 2, 3, 4, 9, 10, 11, 14, 19, 20, 21, 26, 0, 1, 2, 3, 4, 9, 10, 11, 14, 19, 20, 21, 26};
+        {
+            if(Config.consonantsActive & Config.vowelsActive)
+                graphemesIndices = imagesGraphemesIndices;
+            else if (Config.consonantsActive)
+                graphemesIndices = imagesConsonantsGraphemesIndices;
+            else 
+                graphemesIndices = imagesVowelsGraphemesIndices;
+        }
         for (int i = 0 ; i < numberOfPairs ; ++i)
         {
             shuffleNum = rnd.Next(0, (graphemesIndices.Count));

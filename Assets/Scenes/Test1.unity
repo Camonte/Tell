@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 1618780614}
-  onSprite: {fileID: 21300000, guid: 15dbd00764684a843911456406b1190f, type: 3}
+  onSprite: {fileID: 21300000, guid: 470790b2c71a94c4bb3e0e3e9e8cdc77, type: 3}
   offSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   customPivot: 0
   targetText: {fileID: 0}
@@ -5270,7 +5270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 295406858}
-  onSprite: {fileID: 21300000, guid: 15dbd00764684a843911456406b1190f, type: 3}
+  onSprite: {fileID: 21300000, guid: 470790b2c71a94c4bb3e0e3e9e8cdc77, type: 3}
   offSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   customPivot: 0
   targetText: {fileID: 0}
@@ -5992,7 +5992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 1816610646}
-  onSprite: {fileID: 21300000, guid: 15dbd00764684a843911456406b1190f, type: 3}
+  onSprite: {fileID: 21300000, guid: 470790b2c71a94c4bb3e0e3e9e8cdc77, type: 3}
   offSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   customPivot: 0
   targetText: {fileID: 0}
@@ -7228,7 +7228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 599379203}
-  onSprite: {fileID: 21300000, guid: 15dbd00764684a843911456406b1190f, type: 3}
+  onSprite: {fileID: 21300000, guid: 470790b2c71a94c4bb3e0e3e9e8cdc77, type: 3}
   offSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   customPivot: 0
   targetText: {fileID: 0}
