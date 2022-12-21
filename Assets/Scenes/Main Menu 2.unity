@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 565588246}
   - component: {fileID: 565588251}
   - component: {fileID: 565588248}
+  - component: {fileID: 565588249}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -400,7 +401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db787215db6174d758fc22cbc9c45805, type: 3}
+  m_Sprite: {fileID: 21300000, guid: edff8f7fe326847c0a742afd7bebbec3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -474,6 +475,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &565588249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565588244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de74bc365f8b4dbf80c35dc91335ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}
+  right: 0
 --- !u!114 &565588251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +548,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8b4d758d8e9544d63bfaf6667b265456, type: 3}
   - {fileID: 21300000, guid: 6d9d12ab8bd6c4ef0ab0de5eb6a056d8, type: 3}
   - {fileID: 21300000, guid: 13ddeb19418e1427a8d3dd40e4277116, type: 3}
-  - {fileID: 21300000, guid: f497014cd706f4cea94d7712e6c79bc7, type: 3}
   - {fileID: 21300000, guid: c267580378771456e8964402373be11c, type: 3}
   - {fileID: 21300000, guid: c65d1cb8d3fb04501b639d52603dc663, type: 3}
   - {fileID: 21300000, guid: e7e984481770b427aa0f203657bc8aad, type: 3}
@@ -586,14 +600,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 10efe1961e73f4562b8ee86d2766dd26, type: 3}
   - {fileID: 21300000, guid: 7f5a5a589ab3240b08b895e7c2307cdc, type: 3}
   - {fileID: 21300000, guid: bcfba8eec6b37418c905ced4461a8b77, type: 3}
-  - {fileID: 21300000, guid: 25dc089e3a40448409b3db18cda484ff, type: 3}
   - {fileID: 21300000, guid: ec6739cd7e20f49f1940f4b5e6822bea, type: 3}
   - {fileID: 21300000, guid: 89d68e3e8087b40fda4c6defb5e53ed9, type: 3}
   - {fileID: 21300000, guid: 568f81721e9a44af3beee796d22a01f4, type: 3}
   - {fileID: 21300000, guid: 6ea0b868f9f414721bd08ec42153b883, type: 3}
   - {fileID: 21300000, guid: be6aee4642c9c4dbc91d38b59bdbd59b, type: 3}
   - {fileID: 21300000, guid: 7bc05b5a811a94d4ca787e10bcd003a0, type: 3}
-  back: {fileID: 21300000, guid: db787215db6174d758fc22cbc9c45805, type: 3}
+  back: {fileID: 21300000, guid: edff8f7fe326847c0a742afd7bebbec3, type: 3}
   elementIndex: 0
   isImage: 0
   matched: 0

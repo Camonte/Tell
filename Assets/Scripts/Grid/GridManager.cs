@@ -231,8 +231,8 @@ public class GridManager : Singleton<GridManager>
         consonnantsPanel.ClearDict();
         vowelsPanel.ClearDict();
         Config.gameType = Config.gameType == Config.GameType.WordToShape ? Config.GameType.ShapeToWord : Config.GameType.WordToShape;
-        ScaleManager.Instance.SetScale(Config.defaultScale);
-        scaleSlider.value = 0;
+        //ScaleManager.Instance.SetScale(Config.defaultScale);
+        //scaleSlider.value = 0;
         consonnantsPanel.ReloadPanel();
         vowelsPanel.ReloadPanel();
     }

@@ -338,8 +338,9 @@ public class SidePanel : MonoBehaviour
     {
         UpdatePos(-offset);
         UpdatePosOther(-offset);
-        scaleZone.c = null;
-        scaleZone.Awake();
+        //scaleZone.c = null;
+        //scaleZone.Awake();
+        ScaleManager.Instance.SetScale(Config.defaultScale);
         Start();
     }
 }

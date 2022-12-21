@@ -23,15 +23,18 @@ public class Card : MonoBehaviour
     public void TurnOverBack(){
         sprite = back;
         GetComponent<Image>().sprite = sprite;
+        this.GetComponent<CardSpinAnimation>().Animate();        
     }
     
     public void click()
     {
-        if (matched == false && memoryControl.GetComponent<MemoryControl>().secondCardUp == null)
+        if (matched == false && memoryControl.GetComponent<MemoryControl>().secondCardUp == null && !memoryControl.GetComponent<MemoryControl>().animationOn1 && !memoryControl.GetComponent<MemoryControl>().animationOn2)
         {
             if (sprite == back)
             {
                 matched = true;
+                //StartCoroutine(Rotate());
+                this.GetComponent<CardSpinAnimation>().Animate();
                 // Flip the card
                 if(isImage)
                 {
@@ -53,7 +56,7 @@ public class Card : MonoBehaviour
             }
         }
     }
-
+    
     public Vector2 startScale;
     public bool bouncing;
     /// <summary>

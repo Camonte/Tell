@@ -10,7 +10,7 @@ public class MemoryControl : MonoBehaviour
     private List<int> easyDisplayedImages = new List<int> {0, 1, 2};
     private const int easyNumberOfPairs = 3;
     private const int easyStartX = -125;
-    private int[] easySwitchLineIndices = new int[] {0, 1, 3};
+    private int[] easySwitchLineIndices = new int[] {0, 2};
     // Medium mode values
     private List<int> mediumGraphemeOrImage = new List<int> {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1};
     private List<int> mediumDisplayedGraphemes = new List<int> {0, 1, 2, 3, 4, 5};
@@ -59,6 +59,9 @@ public class MemoryControl : MonoBehaviour
 
     private GameObject circle;
 
+    public bool animationOn1;
+    public bool animationOn2;
+
     private void Awake()
     {
         card = GameObject.Find("Card");
@@ -67,6 +70,8 @@ public class MemoryControl : MonoBehaviour
     
     void Start()
     {
+        animationOn1 = false;
+        animationOn2 = false;
         // Set difficulty settings
         if(Config.memoryDifficulty == 1)
         {
@@ -165,7 +170,10 @@ public class MemoryControl : MonoBehaviour
                 var temp = Instantiate(card, new Vector3(0, 0, 0),Quaternion.identity);
                 temp.layer = card.layer;
                 temp.transform.SetParent(GameObject.Find("Canvas").transform);
-                temp.transform.localPosition = new Vector3(xPosition, yPosition, 0);
+                if (Config.memoryDifficulty == 1)
+                    temp.transform.localPosition = new Vector3(xPosition - 125, yPosition - 200, 0);
+                else
+                    temp.transform.localPosition = new Vector3(xPosition, yPosition, 0);
                 temp.transform.localScale = new Vector3(1, 1, 1);
                 temp.GetComponent<Card>().isImage = false;
                 temp.GetComponent<Card>().elementIndex = pickedGraphemesIndices[displayedGraphemes[shuffleNumBis]];
@@ -177,7 +185,10 @@ public class MemoryControl : MonoBehaviour
                 var temp = Instantiate(card, new Vector3(0, 0, 0),Quaternion.identity);
                 temp.layer = card.layer;
                 temp.transform.SetParent(GameObject.Find("Canvas").transform);
-                temp.transform.localPosition = new Vector3(xPosition, yPosition, 0);
+                if (Config.memoryDifficulty == 1)
+                    temp.transform.localPosition = new Vector3(xPosition - 125, yPosition - 200, 0);
+                else
+                    temp.transform.localPosition = new Vector3(xPosition, yPosition, 0);
                 temp.transform.localScale = new Vector3(1, 1, 1);
                 temp.GetComponent<Card>().isImage = true;
                 temp.GetComponent<Card>().elementIndex = pickedImagesIndices[displayedImages[shuffleNumBis]];
@@ -190,11 +201,13 @@ public class MemoryControl : MonoBehaviour
                 yPosition = 40;
                 xPosition = startX;
             }
-            if (i == indices[2])
+            if (Config.memoryDifficulty != 1 && i == indices[2])
             {
                 yPosition = -210;
                 xPosition = startX;
             }
+            if (Config.memoryDifficulty == 1)
+                card.transform.localPosition = new Vector3(-250, 90, 0);
             circle.transform.SetAsLastSibling();
         }
     }
@@ -220,10 +233,10 @@ public class MemoryControl : MonoBehaviour
 
     private void FlipWrongPair()
     {
-        firstCardUp.matched = false;
-        secondCardUp.matched = false;
         firstCardUp.TurnOverBack();
         secondCardUp.TurnOverBack();
+        firstCardUp.matched = false;
+        secondCardUp.matched = false;
         firstCardUp = null;
         secondCardUp = null;
     }

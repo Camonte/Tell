@@ -2801,7 +2801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jeu des harmonies
+  m_text: Jeux des harmonies
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57d2e6361327abf468951defc85e11d5, type: 2}
   m_sharedMaterial: {fileID: -215704385126239436, guid: 57d2e6361327abf468951defc85e11d5, type: 2}
@@ -4213,7 +4213,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Images
+  m_text: Harmonies 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57d2e6361327abf468951defc85e11d5, type: 2}
   m_sharedMaterial: {fileID: -215704385126239436, guid: 57d2e6361327abf468951defc85e11d5, type: 2}
@@ -4799,7 +4799,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Phon\xE8mes"
+  m_text: Harmonies 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57d2e6361327abf468951defc85e11d5, type: 2}
   m_sharedMaterial: {fileID: -215704385126239436, guid: 57d2e6361327abf468951defc85e11d5, type: 2}
