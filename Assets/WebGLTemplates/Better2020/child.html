@@ -248,8 +248,6 @@
                   </tr>
                   <tr>
                       <th>
-                          <input type="checkbox" id="c_gn" name="chk" checked />
-                          <label for="c_gn"><img src="img/consonnants/gn.png" width="40" height="40" /></label>
                           <input type="checkbox" id="c_ch" name="chk" checked />
                           <label for="c_ch"><img src="img/consonnants/ch.png" width="40" height="40" /></label>
                           <input type="checkbox" id="c_j" name="chk" checked />
@@ -267,10 +265,6 @@
                           <input type="checkbox" id="c_y" name="chk" checked />
                           <label for="c_y"><img src="img/consonnants/y.png" width="40" height="40" /></label>
                       </th>
-                      <th>
-                          <input type="checkbox" id="c_oi" name="chk" checked />
-                          <label for="c_oi"><img src="img/voyels/oi.png" width="40" height="40" /></label>
-                      </th>
                   </tr>
                   <tr>
                       <th>
@@ -284,14 +278,6 @@
                           <label for="c_k"><img src="img/consonnants/k.png" width="40" height="40" /></label>
                           <input type="checkbox" id="c_g" name="chk" checked />
                           <label for="c_g"><img src="img/consonnants/g.png" width="40" height="40" /></label>
-                      </th>
-                  </tr>
-                  <tr>
-                      <th>
-                          <input type="checkbox" id="c_ks" name="chk" checked />
-                          <label for="c_ks"><img src="img/consonnants/ks.png" width="40" height="40" /></label>
-                          <input type="checkbox" id="c_gz" name="chk" checked />
-                          <label for="c_gz"><img src="img/consonnants/gz.png" width="40" height="40" /></label>
                       </th>
                   </tr>
               </table>
@@ -519,16 +505,13 @@
           let z = "z-";
           let t = "t-";
           let d = "d-";
-          let gn = "n j-";
           let ch = "S-";
           let j = "Z-";
           let l = "l-";
           let y = "j-";
-          let r = "r-";
+          let r = "R-";
           let k = "k-";
           let g = "g-";
-          let ks = "k s-";
-          let gz = "g z-";
           // vowels
           let u = "y-";
           let i = "i-";
@@ -543,13 +526,12 @@
           let on = "o~-";
           let au = "O-";
           let ou = "u-";
-          let oi = "u a-";
 
           function retrieveCheckboxes() {
               let selectedPhonemes = "";
               // consonnants
               if (document.getElementById("c_m").checked) {
-                  selectedPhonemes.concat(m);
+                  selectedPhonemes = selectedPhonemes.concat(m);
               }
               if (document.getElementById("c_f").checked) {
                   selectedPhonemes = selectedPhonemes.concat(f);
@@ -578,9 +560,6 @@
               if (document.getElementById("c_d").checked) {
                   selectedPhonemes = selectedPhonemes.concat(d);
               }
-              if (document.getElementById("c_gn").checked) {
-                  selectedPhonemes = selectedPhonemes.concat(gn);
-              }
               if (document.getElementById("c_ch").checked) {
                   selectedPhonemes = selectedPhonemes.concat(ch);
               }
@@ -601,12 +580,6 @@
               }
               if (document.getElementById("c_g").checked) {
                   selectedPhonemes = selectedPhonemes.concat(g);
-              }
-              if (document.getElementById("c_ks").checked) {
-                  selectedPhonemes = selectedPhonemes.concat(ks);
-              }
-              if (document.getElementById("c_gz").checked) {
-                  selectedPhonemes = selectedPhonemes.concat(gz);
               }
               // vowels
               if (document.getElementById("c_u").checked) {
@@ -647,9 +620,6 @@
               }
               if (document.getElementById("c_ou").checked) {
                   selectedPhonemes = selectedPhonemes.concat(ou);
-              }
-              if (document.getElementById("c_oi").checked) {
-                  selectedPhonemes = selectedPhonemes.concat(oi);
               }
               return selectedPhonemes;
           }

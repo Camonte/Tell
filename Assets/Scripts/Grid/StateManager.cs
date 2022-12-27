@@ -321,7 +321,20 @@ public class StateManager : Singleton<StateManager>
         HashSet<string> set = new HashSet<string>(phonemes);
         if (GridManager.Instance.grid is GridNoShapes)
         {
-            ((GridNoShapes)GridManager.Instance.grid).selectedPhonemes = set;
+            ((GridNoShapes)GridManager.Instance.grid).selectedPhonemes = CombinationPhonemes(set);
         }
+    }
+
+    private HashSet<string> CombinationPhonemes(HashSet<string> phonemes)
+    {
+        HashSet<string> ret = new HashSet<string>(phonemes);
+        foreach (var item1 in phonemes) 
+        {
+            foreach (var item2 in phonemes) 
+            {
+                ret.Add(item1 + " " + item2);
+            }
+        }
+        return ret;
     }
 }
