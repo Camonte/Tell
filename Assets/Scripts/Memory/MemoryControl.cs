@@ -216,12 +216,12 @@ public class MemoryControl : MonoBehaviour
     {
         firstCardUp.matched = true;
         secondCardUp.matched = true;
-        if (firstCardUp.sprite.name.Substring(0, 2) != secondCardUp.sprite.name.Substring(0, 2))
+        if (firstCardUp.sprite.name.Substring(0, 2) != secondCardUp.sprite.name.Substring(0, 2) || firstCardUp.isImage == secondCardUp.isImage)
         {
             SoundManager.Instance.Failure();
             firstCardUp.Bounce();
             secondCardUp.Bounce();
-            Invoke("FlipWrongPair", 2);
+            Invoke("FlipWrongPair", 1);
         }
         else
         {

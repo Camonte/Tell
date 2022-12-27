@@ -29,7 +29,7 @@ public class CardSpinAnimation : MonoBehaviour
             animationNo = 1;
             memoryControl.GetComponent<MemoryControl>().animationOn1 = true;
         }
-        iTween.RotateAdd(targetObject, iTween.Hash("y", 180, "time", 1.0f, "oncomplete", "ResetFlag"));
+        iTween.RotateAdd(targetObject, iTween.Hash("y", 180, "time", .5f, "oncomplete", "ResetFlag"));
     }
 
     private void ResetFlag()
