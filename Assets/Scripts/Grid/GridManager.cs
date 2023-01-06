@@ -24,7 +24,13 @@ public class GridManager : Singleton<GridManager>
 
     [Space(10)]
     [Header("Free writing mode")]
+    /// <summary>
+    /// Used in the free writing mode to switch between then phonemes and graphemes panels
+    /// </summary>
     [SerializeField] Button switchGridsButton;
+    /// <summary>
+    /// Used in the free writing mode to clear all the phonemes and graphemes currently on the grid
+    /// </summary>
     [SerializeField] Button clearGridButton;
 
     [Space(10)]
@@ -40,11 +46,13 @@ public class GridManager : Singleton<GridManager>
 
     public override void Awake()
     {
+        // If we are in the free writing mode, we configure the buttons to switch the panels and to clear the grid
         if (Config.freeWriting)
         {
             switchGridsButton.onClick.AddListener(changePanels);
             switchGridsButton.gameObject.SetActive(true);
-
+            
+            // To clear the grid, we use the ChangeColoringMode methods which instantiates a new grid
             clearGridButton.onClick.AddListener(ChangeColoringMode);
             clearGridButton.gameObject.SetActive(true);
         }
@@ -55,6 +63,7 @@ public class GridManager : Singleton<GridManager>
     {
         if (FindObjectOfType<Tutorial>() != null) return;
 
+        // If we are in free writing mode, we are in a WordToShape situation, so we instantiate a GridWithShapes grid
         if(Config.freeWriting){
             Config.gameType = Config.GameType.WordToShape;
             grid = Instantiate(gridWithShapes.gameObject).GetComponent<GridWithShapes>();
@@ -226,13 +235,14 @@ public class GridManager : Singleton<GridManager>
         ((GridWithShapesGrapheme)grid).PlaceGrapheme(e, wordIndex, FirstNullElement());
     }
 
+    /// <summary>
+    /// Used to switch between the graphèmes and phonèmes panels in the free writing mode. The panels are cleared and then reloaded
+    /// </summary>
     public void changePanels()
     {
         consonnantsPanel.ClearDict();
         vowelsPanel.ClearDict();
         Config.gameType = Config.gameType == Config.GameType.WordToShape ? Config.GameType.ShapeToWord : Config.GameType.WordToShape;
-        //ScaleManager.Instance.SetScale(Config.defaultScale);
-        //scaleSlider.value = 0;
         consonnantsPanel.ReloadPanel();
         vowelsPanel.ReloadPanel();
     }

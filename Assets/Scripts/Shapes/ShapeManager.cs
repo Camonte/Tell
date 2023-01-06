@@ -21,9 +21,6 @@ public class ShapeManager : Singleton<ShapeManager>
     [SerializeField] GameObject graphemeGeneratorPrefab;
     [SerializeField] GameObject expandableGeneratorPrefab;
 
-    [Header("Eraser prefab")]
-    [SerializeField] GameObject eraserDraggablePrefab;
-
     [Header("Other objects")]
     [SerializeField] GameObject crossObj;
     [SerializeField] Image loader;
@@ -381,23 +378,5 @@ public class ShapeManager : Singleton<ShapeManager>
     {
         cross.SetActive(false);
         crosses.Enqueue(cross);
-    }
-
-    /// <summary>
-    /// Creates a draggable eraser at a given position.
-    /// </summary>
-    public GameObject CreateEraser(Vector2 pos)
-    {
-        GameObject parent = Instantiate(eraserDraggablePrefab);
-        Draggable d = parent.GetComponent<Draggable>();
-
-        var renderer = parent.AddComponent<SpriteRenderer>();
-        var sprite = Resources.Load<Sprite>($"Resources/Icons/eraser.png");
-        renderer.sprite = sprite;
-
-        parent.transform.position = pos;
-        parent.transform.localScale = Vector2.one;
-
-        return parent;
     }
 }

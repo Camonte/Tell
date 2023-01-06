@@ -3,15 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Represents a card in a memory game. Holds all the different possible sprites of cards in graphemesSprites and imagesSprites.
 public class Card : MonoBehaviour
 {
+    // Reference to a <see cref="MemoryControl"/> object in the scene
     GameObject memoryControl;
+    // Sprite that is currently shown on the board for this card (either back or front sprite)
     public Sprite sprite;
+    // Holds all the possible graphemes front sprites for cards
     public Sprite[] graphemesSprites;
+    // Holds all the possible images or phonemes front sprites for cards depending on the set of cards we are currently playing with
     public Sprite[] imagesSprites;
+    // Back sprite of the card
     public Sprite back;
+    // Index of the sprite in the imagesSprites table that is the front of this card
     public int elementIndex;
+    // Indicates whether the front sprite of the card is an image/phoneme or a grapheme
     public bool isImage;
+    // Indicates whether the card has already been correctly matched or not
     public bool matched = false;
 
     private void Awake()
@@ -20,20 +30,25 @@ public class Card : MonoBehaviour
         sprite = GetComponent<Image>().sprite;
     }
 
+    /// <summary>
+    /// Used to automatically flip the card to its back side when it has been incorrectly matched with another
     public void TurnOverBack(){
         sprite = back;
         GetComponent<Image>().sprite = sprite;
         this.GetComponent<CardSpinAnimation>().Animate();        
     }
     
+    /// <summary>
+    // Used to handle the behaviour on the card when the user touches it
     public void click()
     {
+        // We want to flip a card only if it has not been correctly matched yet, if two cards have not been flipped up yet, and if there is not an animation currently happening
         if (matched == false && memoryControl.GetComponent<MemoryControl>().secondCardUp == null && !memoryControl.GetComponent<MemoryControl>().animationOn1 && !memoryControl.GetComponent<MemoryControl>().animationOn2)
         {
+            // We want a user to be able to flip a card only if it is currently with its backside facing up
             if (sprite == back)
             {
                 matched = true;
-                //StartCoroutine(Rotate());
                 this.GetComponent<CardSpinAnimation>().Animate();
                 // Flip the card
                 if(isImage)
@@ -46,10 +61,12 @@ public class Card : MonoBehaviour
                 // Check whether there is already a flipped card on the board
                 if (memoryControl.GetComponent<MemoryControl>().firstCardUp == null)
                 {
+                    // If there is none, firstCardUp is empty and we set firstCardUp to this card
                     memoryControl.GetComponent<MemoryControl>().firstCardUp = this;
                 }
                 else
-                {
+                {   
+                    // If there is, firstCardUp already holds a relevant value and we set secondCardUp to this card
                     memoryControl.GetComponent<MemoryControl>().secondCardUp = this;
                     memoryControl.GetComponent<MemoryControl>().TwoCardsUp();
                 }
@@ -60,7 +77,7 @@ public class Card : MonoBehaviour
     public Vector2 startScale;
     public bool bouncing;
     /// <summary>
-    /// Perform a bouncing animation. TODO: change this to use iTween.
+    /// Perform a bouncing animation.
     /// </summary>
     public void Bounce()
     {

@@ -20,6 +20,8 @@ public class GridWithShapes : Grid
 
     public List<DropZoneSnap> grids = new List<DropZoneSnap>();
 
+    /// <summary>
+    /// Used to handle the phonemes selection option. Holds strings of the phonemes that are currently selected in the external window
     public HashSet<string> selectedPhonemes;
 
     public override void Init()
@@ -101,10 +103,6 @@ public class GridWithShapes : Grid
     {
         StopAllCoroutines();
         var pos = transform.position;
-        
-        //var minScroll = -tmp.textInfo.lineInfo[0].descender;
-        //var maxScroll = -tmp.textInfo.lineInfo[tmp.textInfo.lineCount - 1].descender;
-        //pos.y = Mathf.Clamp(pos.y + delta.y, minScroll, maxScroll);
 
         pos.y += delta.y;
         transform.position = pos;
@@ -170,25 +168,6 @@ public class GridWithShapes : Grid
         grids?[wordIndex]?.Clear(elementIndex, ghost);
     }
 
-    /*
-    public override bool UndoLastMove()
-    {
-        var wordIndex = LastFilledIndex();
-        if (wordIndex == -1) return false;
-        for (int graphemeIndex = grids[wordIndex].draggables.Length - 1; graphemeIndex >= 0; graphemeIndex--)
-        {
-            var d = grids[wordIndex].draggables[graphemeIndex];
-            if (d != null && d.name != "empty")
-            {
-                Clear(wordIndex, graphemeIndex);
-                GridManager.Instance.OnGridChange(wordIndex, true);
-                break;
-            }
-        }
-        return LastFilledIndex() != -1;
-    }
-    */
-
     private void UpdateGrids(bool reset, bool recomputewidths = true)
     {
         if (currentSentence == null) return;
@@ -210,8 +189,6 @@ public class GridWithShapes : Grid
             var widths = grids.Select(g => g.transform.localScale.x).ToArray();
             RepositionGrids(height, scale, widths, reset);
         }
-
-        //UpdateMasks();
     }
 
     private void RepositionGrids(float height, float scale, float[] widths, bool reset)

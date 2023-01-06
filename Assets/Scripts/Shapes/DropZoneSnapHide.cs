@@ -15,12 +15,10 @@ public class DropZoneSnapHide : DropZone
     private GridNoShapes grid;
     int id;
     private Draggable hiddenDraggable;
-    private int hiddenIndex;
 
     private void Awake()
     {
         priority = 2;
-        hiddenIndex = -2;
     }
 
     public void Init(GridNoShapes grid, int id, float[] centers)
@@ -41,9 +39,6 @@ public class DropZoneSnapHide : DropZone
     }
 
     public override bool CanHover(Draggable draggable) => !Config.testMode;
-
-    public override bool CanHover(DraggableEraser draggable) => true;
-
     public override void Hover(Draggable draggable)
     {
         Vector2 pos = transform.InverseTransformPoint(draggable.transform.position);
@@ -62,28 +57,6 @@ public class DropZoneSnapHide : DropZone
     public override void HoverExit(Draggable draggable)
     {
         grid.ResetColors();
-    }
-
-    public override void Hover(DraggableEraser draggable)
-    {
-        Vector2 pos = transform.InverseTransformPoint(draggable.transform.position);
-        var index = BestFilledIndex(pos);
-        if (index != -1)
-        {
-            grid.ColorGrapheme(id, index, new Color[] { Color.white }, true);
-            hiddenDraggable = draggables[index];
-            hiddenIndex = index;
-        }
-    }
-
-    public override void HoverExit(DraggableEraser draggable)
-    {
-        if(hiddenIndex != -2)
-        {
-            grid.ColorGrapheme(id, hiddenIndex, ((Phoneme)hiddenDraggable.element).colors, true);
-            hiddenDraggable = null;
-            hiddenIndex = -2;
-        }
     }
 
     internal void Fill(Phoneme[] phonemes, int filter, HashSet<string> selectedPhonemes)
@@ -165,31 +138,6 @@ public class DropZoneSnapHide : DropZone
         var colors = ((Phoneme)draggable.element).colors;
         grid.ColorGrapheme(id, index, colors);
         grid.Splash(colors, transform.TransformPoint(centers[index]));
-        OnStateChange(true);
-    }
-
-    public override void OnDrop(DraggableEraser draggable)
-    {
-        // get local coordinates
-        Vector2 pos = transform.InverseTransformPoint(draggable.transform.position);
-
-        var index = BestFilledIndex(pos);
-
-        // nothing to erase
-        if (index == -1)
-        {
-            draggable.OnReject(this, "full");
-            return;
-        }
-        //if (!StateManager.Instance.DropOk(draggable.element, id, index))
-        //{
-        //    draggable.OnReject(this, "wrong");
-        //    return;
-        //}
-
-        draggables[index].Destroy();
-        draggables[index] = null;
-        grid.ColorGrapheme(id, index, new Color[] { Color.white });
         OnStateChange(true);
     }
 

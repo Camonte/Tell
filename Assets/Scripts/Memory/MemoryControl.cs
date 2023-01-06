@@ -2,14 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Used to control a memory game.
 public class MemoryControl : MonoBehaviour
 {
+    // The easy/medium/difficult modes values are constant values that are used depending on the difficulty of the game. They are assigned to variables at when launching the scene
+
     // Easy mode values
+    // Used to choose whether we assign a grapheme or an image/phoneme to the card for this mode
     private List<int> easyGraphemeOrImage = new List<int> {0, 0, 0, 1, 1, 1};
+    // Used to track which cards we have assigned or not for this mode
     private List<int> easyDisplayedGraphemes = new List<int> {0, 1, 2};
     private List<int> easyDisplayedImages = new List<int> {0, 1, 2};
+    // Number of pairs of cards on the board for this mode
     private const int easyNumberOfPairs = 3;
+    // x coordinate of the first card on the board for this mode
     private const int easyStartX = -125;
+    // Ìndices on the board where we have to begin a new lign of cards for this mode
     private int[] easySwitchLineIndices = new int[] {0, 2};
     // Medium mode values
     private List<int> mediumGraphemeOrImage = new List<int> {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1};
@@ -27,8 +36,11 @@ public class MemoryControl : MonoBehaviour
     private int[] difficultSwitchLineIndices = new int[] {2, 5, 11};
 
     // Images mode values
+    // Indices of the images sprites used when both consonnants and vowels are selected
     private List<int> imagesGraphemesIndices = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29};
+    // Indices of the images sprites used when only consonnants are selected
     private List<int> imagesConsonantsGraphemesIndices = new List<int> {5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 22, 23, 24, 25, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 22, 23, 24, 25};
+    // Indices of the images sprites used when only vowels are selected
     private List<int> imagesVowelsGraphemesIndices = new List<int> {0, 1, 2, 3, 4, 9, 10, 11, 14, 19, 20, 21, 26, 0, 1, 2, 3, 4, 9, 10, 11, 14, 19, 20, 21, 26};
 
     // Phonemes mode values
@@ -37,11 +49,17 @@ public class MemoryControl : MonoBehaviour
     private List<int> phonemesVowelsGraphemesIndices = new List<int> {0, 1, 2, 3, 4, 5, 12, 13, 14, 15, 20, 21, 22, 23, 24, 30, 31, 32, 33, 34, 35, 36, 43, 48, 49, 50, 51};
     
     GameObject card;
+    // Holds all possible graphemes indices
     List<int> graphemesIndices;
+    // Indices of the graphemes sprites that have been picked to be displayed on the board
     List<int> pickedGraphemesIndices;
+    // Indices of the images/phonemes sprites that have been picked to be displayed on the board
     List<int> pickedImagesIndices;
+    // Tracks which graphemes sprites among the picked ones we have placed on the board yet
     List<int> displayedGraphemes;
+    // Tracks which images/phonemes sprites among the picked ones we have placed on the board yet
     List<int> displayedImages;
+    // Helps to select whether the next displayed sprite will be a grapheme or an image/phoneme 
     List<int> graphemeOrImage;
     int shuffleNum;
     int shuffleNumBis;
@@ -54,11 +72,13 @@ public class MemoryControl : MonoBehaviour
     public static System.Random rnd = new System.Random();
     int[] visibleFaces;
 
+    // Holds the cards that are currently with their front face up on the board, assigned by <see cref="Card"/> themselves
     public Card firstCardUp;
     public Card secondCardUp;
 
     private GameObject circle;
 
+    // Indicates whether animations are playing. Two animations can play at the same time, so we have two flags.
     public bool animationOn1;
     public bool animationOn2;
 
@@ -100,7 +120,6 @@ public class MemoryControl : MonoBehaviour
             startX = difficultStartX;
             switchLineIndices = difficultSwitchLineIndices;
         }
-        // Pick the three pairs that are gonna be used
         xPosition = startX;
         firstCardUp = null;
         secondCardUp = null;
@@ -128,6 +147,7 @@ public class MemoryControl : MonoBehaviour
             else 
                 graphemesIndices = imagesVowelsGraphemesIndices;
         }
+        // Pick the sprites of the pairs that are gonna be used
         for (int i = 0 ; i < numberOfPairs ; ++i)
         {
             shuffleNum = rnd.Next(0, (graphemesIndices.Count));
@@ -152,6 +172,8 @@ public class MemoryControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Used to instantiate the cards on the board at the beginning of the game
     private void InstantiateCards(int[] indices)
     {
         // Instantiate cards
@@ -162,7 +184,7 @@ public class MemoryControl : MonoBehaviour
                 xPosition = xPosition + 250;
                 continue;
             }
-            // Grapheme or Image ?
+            // Decides whether instantiating a grapheme or an image
             shuffleNum = rnd.Next(0, (graphemeOrImage.Count));
             if (graphemeOrImage[shuffleNum] == 0)
             {
@@ -212,6 +234,8 @@ public class MemoryControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when the user has flipped two cards up. Checks whether the match is correct and either flips back the card if it is not or locks them if it is
     public void TwoCardsUp()
     {
         firstCardUp.matched = true;

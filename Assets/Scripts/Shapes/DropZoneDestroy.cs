@@ -11,9 +11,4 @@ public class DropZoneDestroy : DropZone
     {
         Destroy(draggable.gameObject);
     }
-
-    public override void OnDrop(DraggableEraser draggable)
-    {
-        Destroy(draggable.gameObject);
-    }
 }

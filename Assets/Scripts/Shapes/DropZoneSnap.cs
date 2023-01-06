@@ -22,13 +22,9 @@ public class DropZoneSnap : DropZone
 
     private GameObject previewGhost;
 
-    private int hiddenIndex;
-
-
     private void Awake()
     {
         priority = 2;
-        hiddenIndex = -2;
     }
 
     public void Init(int id, float scale, int n, bool withCounts = false)
@@ -121,19 +117,6 @@ public class DropZoneSnap : DropZone
         }
     }
 
-    public override bool CanHover(DraggableEraser draggable) => true;
-
-    public override void Hover(DraggableEraser draggable)
-    {
-        Vector2 pos = transform.InverseTransformPoint(draggable.transform.position);
-        var index = BestFilledIndex(pos);
-        if (index != -1 && draggables[index] != null)
-        {
-            draggables[index].Hide();
-            hiddenIndex = index;
-        }
-    }
-
     internal void Fill(Word w)
     {
         Clear();
@@ -186,15 +169,6 @@ public class DropZoneSnap : DropZone
         }
 
         foreach (var ghost in ghosts) if (ghost != null) ghost.gameObject.SetActive(true);
-    }
-
-    public override void HoverExit(DraggableEraser draggable)
-    {
-        if (hiddenIndex != -2)
-        {
-            draggables[hiddenIndex].Show();
-            hiddenIndex = -2;
-        }
     }
 
     public void Clear(int i, bool ghost = false)
@@ -261,30 +235,6 @@ public class DropZoneSnap : DropZone
         draggables[index] = draggable;
         if (Config.progressiveCorrection)
             draggable.enabled = false;
-        OnStateChange(true);
-    }
-
-    public override void OnDrop(DraggableEraser draggable)
-    {
-        // get local coordinates
-        Vector2 pos = transform.InverseTransformPoint(draggable.transform.position);
-
-        var index = BestFilledIndex(pos);
-
-        // nothing to erase
-        if (index == -1)
-        {
-            draggable.OnReject(this, "full");
-            return;
-        }
-        //if (!StateManager.Instance.DropOk(draggable.element, id, index))
-        //{
-        //    draggable.OnReject(this, "wrong");
-        //    return;
-        //}
-        draggables[index].Destroy();
-        draggables[index] = null;
-        draggable.Destroy();
         OnStateChange(true);
     }
 

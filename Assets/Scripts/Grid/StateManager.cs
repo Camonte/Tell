@@ -21,6 +21,7 @@ public class StateManager : Singleton<StateManager>
     [SerializeField] Button nextWordButton;
 
     //[SerializeField] Button hintButton;
+    // Hint functionality commented as it induced bugs in the initial version of the game
 
     List<Sentence> sentences = new List<Sentence>();
     public Sentence currentSentence;
@@ -36,6 +37,7 @@ public class StateManager : Singleton<StateManager>
 
         wellDoneImage.gameObject.SetActive(false);
 
+        // The correction mode selection is only available in the assessment mode/test mode
         if (Config.testMode)
         {
             correctionToggle.onValueChanged.AddListener(SetCorrectionMode);
@@ -47,6 +49,7 @@ public class StateManager : Singleton<StateManager>
         nextWordButton.gameObject.SetActive(false);
         nextWordButton.onClick.AddListener(NextWord);
 
+        // Hint functionality commented
         //hintButton.onClick.AddListener(GiveHint);
         //hintButton.gameObject.SetActive(false);
     }
@@ -117,6 +120,7 @@ public class StateManager : Singleton<StateManager>
         ReloadSentence();
     }
 
+    // Hint functionality commented
     // public void GiveHint()
     // {
     //     if (currentSentence == null) return;
@@ -165,6 +169,7 @@ public class StateManager : Singleton<StateManager>
             GridManager.Instance.GenerateFor(currentSentence);
             currentWordIndex = 0;
         }
+        // Hint functionality commented
         //hintButton.gameObject.SetActive(currentSentence != null);
     }
 
@@ -176,6 +181,7 @@ public class StateManager : Singleton<StateManager>
         {
             GridManager.Instance.GenerateFor(currentSentence);
             currentWordIndex = 0;
+            // Hit functionality commented
             //hintButton.gameObject.SetActive(true);
         }
     }
@@ -218,7 +224,7 @@ public class StateManager : Singleton<StateManager>
             if (scroll) GridManager.Instance.ScrollToWord(GridManager.Instance.FirstNullIndex(wordChanged));
             checkButton.gameObject.SetActive(full);
         }
-
+        // Hint functionality commented
         //hintButton.gameObject.SetActive(!full);
     }
 
@@ -249,6 +255,9 @@ public class StateManager : Singleton<StateManager>
         return true;
     }
 
+    /// <summary>
+    /// Used in the assessment mode to verify the solution that has been entered (touched)
+    /// </summary>
     public bool TapOk(Element e)
     {
         return Solution(currentWordIndex)[GridManager.Instance.FirstNullElement()] == e;

@@ -30,6 +30,7 @@ public class Spawn : DropZoneMerge
     {
         SoundManager.Instance.Play(phoneme.id);
         tutorial?.Check(phoneme);
+        // In the assessment mode, consider touching as an answer
         if(Config.testMode && StateManager.Instance.currentSentence != null && GridManager.Instance.FirstNullIndex() != -1)
         {
             if(Config.progressiveCorrection & !StateManager.Instance.TapOk(phoneme))

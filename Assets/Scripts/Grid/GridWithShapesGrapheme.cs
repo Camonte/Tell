@@ -102,10 +102,6 @@ public class GridWithShapesGrapheme : Grid
         StopAllCoroutines();
         var pos = transform.position;
 
-        //var minScroll = -tmp.textInfo.lineInfo[0].descender;
-        //var maxScroll = -tmp.textInfo.lineInfo[tmp.textInfo.lineCount - 1].descender;
-        //pos.y = Mathf.Clamp(pos.y + delta.y, minScroll, maxScroll);
-
         pos.y += delta.y;
         transform.position = pos;
     }
@@ -168,25 +164,6 @@ public class GridWithShapesGrapheme : Grid
     {
         grids?[wordIndex]?.Clear(elementIndex, ghost);
     }
-
-    /*
-    public override bool UndoLastMove()
-    {
-        var wordIndex = LastFilledIndex();
-        if (wordIndex == -1) return false;
-        for (int graphemeIndex = grids[wordIndex].draggables.Length - 1; graphemeIndex >= 0; graphemeIndex--)
-        {
-            var d = grids[wordIndex].draggables[graphemeIndex];
-            if (d != null && d.name != "empty")
-            {
-                Clear(wordIndex, graphemeIndex);
-                GridManager.Instance.OnGridChange(wordIndex, true);
-                break;
-            }
-        }
-        return LastFilledIndex() != -1;
-    }
-    */
 
     private float[] ComputeGraphemeCenters(int wordIndex, int filter = 0)
     {

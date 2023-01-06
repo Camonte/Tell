@@ -4,6 +4,10 @@
  using UnityEditor.Build.Reporting;
  using UnityEngine;
  
+ // Necessary to be able to build the project on macOS
+ // Change of path needed towards your python folder
+ // Can ignore this file when building on Windows
+
  public class PreBuildProcessing : IPreprocessBuildWithReport
  {
      public int callbackOrder => 1;

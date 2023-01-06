@@ -134,10 +134,6 @@ public class GridNoShapes : Grid
         StopAllCoroutines();
         var pos = transform.position;
 
-        //var minScroll = -tmp.textInfo.lineInfo[0].descender;
-        //var maxScroll = -tmp.textInfo.lineInfo[tmp.textInfo.lineCount - 1].descender;
-        //pos.y = Mathf.Clamp(pos.y + delta.y, minScroll, maxScroll);
-
         pos.y += delta.y;
         transform.position = pos;
     }

@@ -334,12 +334,13 @@ public class SidePanel : MonoBehaviour
         generators.Clear();
     }
 
+    /// <summary>
+    /// Used in the free writing mode to switch between the graphemes and phonemes panels
+    /// </summary>
     public void ReloadPanel()
     {
         UpdatePos(-offset);
         UpdatePosOther(-offset);
-        //scaleZone.c = null;
-        //scaleZone.Awake();
         ScaleManager.Instance.SetScale(Config.defaultScale);
         Start();
     }
