@@ -10,8 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class Tutorial : MonoBehaviour
 {
-    private const string audioInfoText = "Appuie sur le phonème que tu viens d'entendre !\n\nTu peux réécouter le son en appuyant sur le bouton lecture.";
-    private const string visualInfoText = "Prononce le son qui correspond au phonème proposé !\n\nTu peux passer au suivant en appuyant sur la flèche.";
+    private const string audioInfoText = "Appuie sur le phonÃ¨me que tu viens d'entendre !\n\nTu peux rÃ©Ã©couter le son en appuyant sur le bouton lecture.";
+    private const string visualInfoText = "Prononce le son qui correspond au phonÃ¨me proposÃ© !\n\nTu peux passer au suivant en appuyant sur la flÃ¨che.";
 
     Phoneme currentPhoneme;
     int currentPhonemeIndex;

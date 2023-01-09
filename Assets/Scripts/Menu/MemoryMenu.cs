@@ -120,4 +120,17 @@ public class MemoryMenu : MonoBehaviour
         }
         StartCoroutine(Launch(SceneManager.GetActiveScene().name));
     }
+
+    public void PreviousLevel()
+    {
+        if(Config.memoryDifficulty == 3)
+        {
+            Config.memoryDifficulty = 2;
+        } 
+        else if (Config.memoryDifficulty == 2)
+        {
+            Config.memoryDifficulty = 1;
+        }
+        StartCoroutine(Launch(SceneManager.GetActiveScene().name));
+    }
 }
